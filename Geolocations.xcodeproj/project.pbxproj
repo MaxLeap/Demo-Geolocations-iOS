@@ -10,9 +10,8 @@
 		9D0C49AD197E182800BDAE3F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C494801F15ED5D6E00507216 /* libsqlite3.dylib */; };
 		9D0C49AE197E186600BDAE3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C451215015C885E3005E733A /* UIKit.framework */; };
 		9D608DA91B4228AF00888180 /* LAS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D608DA81B4228AF00888180 /* LAS.framework */; };
-		9DE0FD541A1F1C1B0030AE25 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0FD531A1F1C1B0030AE25 /* Security.framework */; };
+		9D8C6D5A1B427CCC00036055 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C6D591B427CCC00036055 /* libz.dylib */; };
 		9DE0FD561A1F1C2B0030AE25 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */; };
-		9DF7E0F21999B5A6005A32D0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E0F11999B5A6005A32D0 /* CoreLocation.framework */; };
 		9DF7E2091999C250005A32D0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E2081999C250005A32D0 /* SystemConfiguration.framework */; };
 		9DF7E20A1999C26D005A32D0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E0EF1999B2F2005A32D0 /* CoreTelephony.framework */; };
 		C4370E4915DDCE4C00ED6B24 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4370E4815DDCE4C00ED6B24 /* SearchViewController.m */; };
@@ -25,7 +24,6 @@
 		C451216415C885E3005E733A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C451216215C885E3005E733A /* MainStoryboard.storyboard */; };
 		C451216A15C885E3005E733A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C451216915C885E3005E733A /* DetailViewController.m */; };
 		C451219415C89727005E733A /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C451219315C89727005E733A /* MasterViewController.m */; };
-		C4C1A26C15CB2DBE0067E7EA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C1A26A15CB2DAB0067E7EA /* MapKit.framework */; };
 		C4C1A26F15CB30A90067E7EA /* GeoPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1A26E15CB30A80067E7EA /* GeoPointAnnotation.m */; };
 		C4DDA8A416EE583000B5C174 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4DDA8A116EE583000B5C174 /* Default-568h@2x.png */; };
 		C4DDA8A516EE583000B5C174 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C4DDA8A216EE583000B5C174 /* Default.png */; };
@@ -34,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		9D608DA81B4228AF00888180 /* LAS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LAS.framework; path = Frameworks/LAS.framework; sourceTree = "<group>"; };
+		9D8C6D591B427CCC00036055 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9D8C6D5B1B427CE800036055 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9DE0FD531A1F1C1B0030AE25 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9DF7E0EF1999B2F2005A32D0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -73,14 +73,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8C6D5A1B427CCC00036055 /* libz.dylib in Frameworks */,
 				9DE0FD561A1F1C2B0030AE25 /* MobileCoreServices.framework in Frameworks */,
-				9DE0FD541A1F1C1B0030AE25 /* Security.framework in Frameworks */,
 				9DF7E2091999C250005A32D0 /* SystemConfiguration.framework in Frameworks */,
-				9DF7E0F21999B5A6005A32D0 /* CoreLocation.framework in Frameworks */,
 				9D0C49AD197E182800BDAE3F /* libsqlite3.dylib in Frameworks */,
 				9D608DA91B4228AF00888180 /* LAS.framework in Frameworks */,
 				9DF7E20A1999C26D005A32D0 /* CoreTelephony.framework in Frameworks */,
-				C4C1A26C15CB2DBE0067E7EA /* MapKit.framework in Frameworks */,
 				9D0C49AE197E186600BDAE3F /* UIKit.framework in Frameworks */,
 				C451215315C885E3005E733A /* Foundation.framework in Frameworks */,
 			);
@@ -109,6 +107,8 @@
 		C451214F15C885E3005E733A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D8C6D5B1B427CE800036055 /* CoreGraphics.framework */,
+				9D8C6D591B427CCC00036055 /* libz.dylib */,
 				9D608DA81B4228AF00888180 /* LAS.framework */,
 				9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */,
 				9DE0FD531A1F1C1B0030AE25 /* Security.framework */,
@@ -436,6 +436,7 @@
 		C451216E15C885E3005E733A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -460,6 +461,7 @@
 		C451216F15C885E3005E733A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (

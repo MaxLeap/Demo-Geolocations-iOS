@@ -15,6 +15,11 @@
  */
 + (void)enable __deprecated_msg("please use LASConfig instead");
 
+/**
+ *  Refresh cloud parameter cache. Cloud paramete cache cannot auto-refresh, you can call this method to refresh them.
+ */
++ (void)refresh __deprecated_msg("please use LASConfig instead");
+
 + (NSString *)getValueWithName:(NSString *)paramName defaultValue:(NSString *)defaultValue __deprecated_msg("please use LASConfig instead");
 + (NSInteger)getIntValueWithName:(NSString *)paramName defaultValue:(NSInteger)defaultValue __deprecated_msg("please use LASConfig instead");
 + (BOOL)getBooleanValueWithName:(NSString *)paramName defaultValue:(BOOL)defaultValue __deprecated_msg("please use LASConfig instead");

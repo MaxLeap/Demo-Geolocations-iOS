@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LASConstants.h"
+
+@class LASPrivateFile;
 
 @interface LASPrivateFileManager : NSObject
 
@@ -135,9 +138,21 @@
 + (void)getMetaDataInBackground:(LASPrivateFile *)file shouldGetContents:(BOOL)shouldGetContents block:(LASBooleanResultBlock)block;
 
 /**
+ *  Gets the metadata of a file and excutes the block when done.
+ *
+ *  @discussion The metadata will be set on the 'file' object automatically.
+ *
+ *  @param file     The file's remote path shouldn't be nil.
+ *  @param skip     The number of file metadata to skip before returning any.
+ *  @param limit    A limit on the number of file metadata to return. The default limit is 200, with a maximum of 2000 results being returned at a time.
+ *  @param block    The block should have the following argument signature: (BOOL success, NSError *error)
+ */
++ (void)getMetaDataInBackground:(LASPrivateFile *)file skip:(int)skip limit:(int)limit block:(LASBooleanResultBlock)block;
+
+/**
  *  Get the usage of current user.
  *
- *  @param block The block parameter represents usage of current user. It has 3 parameters. 1. fileCount: How many private files the current user save on LAS file servers. 2. usedCapacity: The capacity current user used in bytes. 3. error: If there is an error, fileCount and usedCapacity both are -1.
+ *  @param block The block parameter represents usage of current user. It has 3 parameters. 1. fileCount: How many private files the current user save on LAS file servers. 2. usedCapacity: The capacity current user used in bytes. 3. error: If there is an error, both fileCount and usedCapacity are -1.
  */
 + (void)getUsage:(LASUsageResultBlock)block;
 

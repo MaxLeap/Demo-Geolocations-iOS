@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LASConstants.h"
 
 @class LASEmail;
 

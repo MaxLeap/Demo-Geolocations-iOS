@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <LAS/LASConstants.h>
 
-@class LASPush;
-@class UIUserNotificationSettings;
+@class LASPush, LASQuery;
 
 /*!
  */

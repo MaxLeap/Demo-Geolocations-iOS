@@ -7,7 +7,6 @@
 //
 
 #import "LASConstants.h"
-#import "LASQuery.h"
 
 /*!
  The helper class for LASObject. This class provides CRUD APIs for LASObject. You can use the methods bellow to create, update, delete and find objects on the LAS server.

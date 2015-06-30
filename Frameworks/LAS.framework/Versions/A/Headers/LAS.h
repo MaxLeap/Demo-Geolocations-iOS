@@ -24,6 +24,7 @@
 #import <LAS/LASUser.h>
 #import <LAS/LASUserManager.h>
 #import <LAS/LASAnonymousUtils.h>
+#import <LAS/LAS_Twitter.h>
 #import <LAS/LASTwitterUtils.h>
 #import <LAS/LASPassport.h>
 #import <LAS/LASPassportManager.h>
@@ -36,10 +37,12 @@
 #import <LAS/LASPrivateFileManager.h>
 #import <LAS/LASConfig.h>
 #import <LAS/LASConfigManager.h>
+#import <LAS/LASSdkService.h>
 #import <LAS/LASSdkServiceManager.h>
 #import <LAS/LASEmail.h>
 #import <LAS/LASEmailManager.h>
 #import <LAS/LASReceiptManager.h>
+#import <LAS/LASMarketingManager.h>
 
 /*!
  The `LAS` class contains static functions that handle global configuration for the LAS framework.
