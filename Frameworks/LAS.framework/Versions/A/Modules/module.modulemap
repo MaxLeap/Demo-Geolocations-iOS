@@ -1,0 +1,6 @@
+framework module LAS {
+    umbrella header "LAS.h"
+    
+    export *
+    module * { export * }
+}
