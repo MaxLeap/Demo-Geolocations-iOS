@@ -15,10 +15,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // ****************************************************************************
-    // LAS initialization
-#warning Please fill in with your LAS credentials
-    [LAS setApplicationId:@"APPLICATION_ID_HERE" clientKey:@"CLIENT_KEY_HERE"];
+    // Uncommit fill in with your LAS credentials:
     // ****************************************************************************
+#warning Please fill in with your LAS credentials
+    // [LAS setApplicationId:@"APPLICATION_ID_HERE" clientKey:@"CLIENT_KEY_HERE"];
 
     LASUser *currentUser = [LASUser currentUser];
     if (currentUser.sessionToken.length == 0) {
