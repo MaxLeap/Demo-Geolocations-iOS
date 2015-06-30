@@ -5,8 +5,6 @@
 //  Created by Héctor Ramos on 7/31/12.
 //
 
-// PFQueryTableViewController UIStoryboard Template
-
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "SearchViewController.h"
@@ -56,36 +54,9 @@
     }
 }
 
-
-#pragma mark - PFQueryTableViewController
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.objects.count;
 }
-
-/*
- // Override to customize what kind of query to perform on the class. The default is to query for
- // all objects ordered by createdAt descending.
- - (PFQuery *)queryForTable {
- PFQuery *query = [PFQuery queryWithClassName:self.className];
- 
- // If Pull To Refresh is enabled, query against the network by default.
- if (self.pullToRefreshEnabled) {
- query.cachePolicy = kPFCachePolicyNetworkOnly;
- }
- 
- // If no objects are loaded in memory, we look to the cache first to fill the table
- // and then subsequently do a query against the network.
- if (self.objects.count == 0) {
- query.cachePolicy = kPFCachePolicyCacheThenNetwork;
- }
- 
- [query orderByDescending:@"createdAt"];
- 
- return query;
- }
- */
 
 // Override to customize the look of a cell representing an object. The default is to display
 // a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
@@ -132,33 +103,6 @@
     
     return cell;
 }
-
-/*
- // Override if you need to change the ordering of objects in the table.
- - (PFObject *)objectAtIndex:(NSIndexPath *)indexPath {
- return [self.objects objectAtIndex:indexPath.row];
- }
- */
-
-/*
- // Override to customize the look of the cell that allows the user to load the next page of objects.
- // The default implementation is a UITableViewCellStyleDefault cell with simple labels.
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
- static NSString *CellIdentifier = @"NextPage";
- 
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- 
- if (cell == nil) {
- cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
- cell.selectionStyle = UITableViewCellSelectionStyleNone;
- cell.textLabel.text = @"Load more...";
- 
- return cell;
- }
- */
-
 
 #pragma mark - UITableViewDataSource
 

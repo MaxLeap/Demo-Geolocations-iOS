@@ -36,7 +36,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
-	<string>Your current location is used to demonstrate PFGeoPoint and Geo Queries.</string>
+	<string>Your current location is used to demonstrate LASGeoPoint and Geo Queries.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
