@@ -49,13 +49,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>ilsAppConfig</key>
-	<dict>
-		<key>appInfo</key>
-		<dict>
-			<key>ILSConnectEnvironment</key>
-			<string>uat</string>
-		</dict>
-	</dict>
 </dict>
 </plist>
