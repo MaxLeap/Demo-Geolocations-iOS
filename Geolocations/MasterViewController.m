@@ -194,6 +194,7 @@
 }
 
 - (IBAction)insertCurrentLocation:(id)sender {
+    
 	// If it's not possible to get a location, then return.
 	CLLocation *location = self.locationManager.location;
 	if (!location) {
@@ -214,21 +215,27 @@
 }
 
 - (void)loadObjects {
-    LASQuery *query = [LASQuery queryWithClassName:@"Location"];
+    // If it's not possible to get a location, then return.
+    CLLocation *location = self.locationManager.location;
+    if (!location) {
+        return;
+    }
     
-    [LASGeoPoint geoPointForCurrentLocationInBackground:^(LASGeoPoint *geoPoint, NSError *error) {
+    // Configure the new event with information from the location.
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    LASGeoPoint *geoPoint = [LASGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    
+    LASQuery *query = [LASQuery queryWithClassName:@"Location"];
+    if (geoPoint) {
+        [query whereKey:@"location" nearGeoPoint:geoPoint withinKilometers:1];
         
-        if (geoPoint) {
-            [query whereKey:@"location" nearGeoPoint:geoPoint withinKilometers:1];
-            
-            [LASQueryManager findObjectsInBackgroundWithQuery:query block:^(NSArray *objects, NSError *error) {
-                if (nil == error) {
-                    self.objects = objects;
-                    [self.tableView reloadData];
-                }
-            }];
-        }
-    }];
+        [LASQueryManager findObjectsInBackgroundWithQuery:query block:^(NSArray *objects, NSError *error) {
+            if (nil == error) {
+                self.objects = objects;
+                [self.tableView reloadData];
+            }
+        }];
+    }
 }
 
 @end
