@@ -1,26 +1,26 @@
 # Geolocations
 
-## 介绍
+## Overview
 
-Geolocations 介绍如何利用 LAS 保存一个地理位置坐标，如何查询某个地理范围内的位置记录。
+The project teaches you how to save a geographic coordinate with LAS and how to search the location record around a certain geographic range.
 
-## 演示功能
+## Features
 
-- 保存现在的地理位置坐标
-- 查询附近的位置记录
+- Save current geographic coordinate
+- Search location record around a certain geographic range
 
-## 效果截图
+## Screenshots
 
 ![](docs/images/1.png)
 ![](docs/images/2.png)
 
-## 如何运行
+## How to Run
 
-- 克隆这个仓库，然后打开项目
-- 在 leap.as 控制台中创建一个应用，下面称他为 LAS 应用。如果已经创建，跳过这个步骤。
-- 在 `AppDelegate.` 中填写 LAS 应用的 applicationId 和 clientKey.
-- 按下 Commond + R 按钮运行
+- Clone the repository and then open the project.
+- Create an app in leap.as console and name it LAS App. You can skip this step if you've already created one.
+- Add your LAS application id and client key in `AppDelegate.` .
+- Press Command + R to run it.
 
-## 了解更多
+## Learn More
 
-详细信息请查看官方 [LAS iOS 开发指南](https://leap.as/docs/cloudData/ios.html);
+Please check official [LAS iOS Guide](https://leap.as/docs/cloudData/ios.html) to learn more details.
