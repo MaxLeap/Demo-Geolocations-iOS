@@ -10,7 +10,7 @@
 
 @interface DetailViewController : UIViewController <MKMapViewDelegate>
 
-@property (nonatomic, strong) LASObject *detailItem;
+@property (nonatomic, strong) MLObject *detailItem;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
 @end

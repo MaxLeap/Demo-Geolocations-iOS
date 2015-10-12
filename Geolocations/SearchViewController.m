@@ -174,15 +174,15 @@ enum PinAnnotationTypeTag {
 - (void)updateLocations {
     CGFloat kilometers = self.radius/1000.0f;
 
-    LASQuery *query = [LASQuery queryWithClassName:@"Location"];
+    MLQuery *query = [MLQuery queryWithClassName:@"Location"];
     [query setLimit:1000];
     [query whereKey:@"location"
-       nearGeoPoint:[LASGeoPoint geoPointWithLatitude:self.location.coordinate.latitude
+       nearGeoPoint:[MLGeoPoint geoPointWithLatitude:self.location.coordinate.latitude
                                            longitude:self.location.coordinate.longitude]
    withinKilometers:kilometers];
-    [LASQueryManager findObjectsInBackgroundWithQuery:query block:^(NSArray *objects, NSError *error) {
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            for (LASObject *object in objects) {
+            for (MLObject *object in objects) {
                 GeoPointAnnotation *geoPointAnnotation = [[GeoPointAnnotation alloc]
                                                           initWithObject:object];
                 [self.mapView addAnnotation:geoPointAnnotation];

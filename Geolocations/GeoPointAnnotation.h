@@ -10,7 +10,7 @@
 
 @interface GeoPointAnnotation : NSObject <MKAnnotation>
 
-- (id)initWithObject:(LASObject *)aObject;
+- (id)initWithObject:(MLObject *)aObject;
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly, copy) NSString *title;

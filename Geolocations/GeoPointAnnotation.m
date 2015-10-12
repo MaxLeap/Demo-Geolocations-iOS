@@ -8,7 +8,7 @@
 #import "GeoPointAnnotation.h"
 
 @interface GeoPointAnnotation()
-@property (nonatomic, strong) LASObject *object;
+@property (nonatomic, strong) MLObject *object;
 @end
 
 @implementation GeoPointAnnotation
@@ -16,12 +16,12 @@
 
 #pragma mark - Initialization
 
-- (id)initWithObject:(LASObject *)aObject {
+- (id)initWithObject:(MLObject *)aObject {
     self = [super init];
     if (self) {
         _object = aObject;
         
-        LASGeoPoint *geoPoint = self.object[@"location"];
+        MLGeoPoint *geoPoint = self.object[@"location"];
         [self setGeoPoint:geoPoint];
     }
     return self;
@@ -32,10 +32,10 @@
 
 // Called when the annotation is dragged and dropped. We update the geoPoint with the new coordinates.
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate {
-    LASGeoPoint *geoPoint = [LASGeoPoint geoPointWithLatitude:newCoordinate.latitude longitude:newCoordinate.longitude];
+    MLGeoPoint *geoPoint = [MLGeoPoint geoPointWithLatitude:newCoordinate.latitude longitude:newCoordinate.longitude];
     [self setGeoPoint:geoPoint];
     [self.object setObject:geoPoint forKey:@"location"];
-    [LASDataManager saveObjectInBackground:self.object block:^(BOOL succeeded, NSError *error) {
+    [self.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // Send a notification when this geopoint has been updated. MasterViewController will be listening for this notification, and will reload its data when this notification is received.
             [[NSNotificationCenter defaultCenter] postNotificationName:@"geoPointAnnotiationUpdated" object:self.object];
@@ -46,7 +46,7 @@
 
 #pragma mark - ()
 
-- (void)setGeoPoint:(LASGeoPoint *)geoPoint {
+- (void)setGeoPoint:(MLGeoPoint *)geoPoint {
     _coordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
     
     static NSDateFormatter *dateFormatter = nil;

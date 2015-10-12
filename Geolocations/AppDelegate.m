@@ -15,10 +15,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // ****************************************************************************
-    // Uncommit fill in with your LAS credentials:
+    // Uncommit fill in with your MaxLeap credentials:
     // ****************************************************************************
-#warning Please fill in with your LAS credentials
-    // [LAS setApplicationId:@"APPLICATION_ID_HERE" clientKey:@"CLIENT_KEY_HERE"];
+#warning Please fill in with your MaxLeap credentials
+    // [MaxLeap setApplicationId:@"APPLICATION_ID_HERE" clientKey:@"CLIENT_KEY_HERE"];
     
     // Override point for customization after application launch.
     return YES;

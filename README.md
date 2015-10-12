@@ -2,7 +2,7 @@
 
 ## Overview
 
-The project teaches you how to save a geographic coordinate with LAS and how to search the location record around a certain geographic range.
+The project teaches you how to save a geographic coordinate with MaxLeap and how to search the location record around a certain geographic range.
 
 ## Features
 
@@ -19,8 +19,8 @@ The project teaches you how to save a geographic coordinate with LAS and how to 
 - Clone the repository and then open the project.
 - Create an app in leap.as console and name it LAS App. You can skip this step if you've already created one.
 - Add your LAS application id and client key in `AppDelegate.` .
-- Press Command + R to run it.
+- Press <kbd>Command</kbd> + <kbd>R</kbd> to run it.
 
 ## Learn More
 
-Please check official [LAS iOS Guide](https://leap.as/docs/cloudData/ios.html) to learn more details.
+Please check official [MaxLeap iOS Guide](https://leap.as/en_us/guide/devguide/ios.html) to learn more details.

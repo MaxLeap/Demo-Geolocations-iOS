@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8883F86CDA37C86D31E7AE9F6BC17C8AEB07A66D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E4D582F7A3254EBC13D919F507CC72B9BEEC7284" : 0,
+    "8883F86CDA37C86D31E7AE9F6BC17C8AEB07A66D" : 0,
+    "066F4D81919596A1D0CEAB960979104E35418410" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F6340BC3-E753-4BA2-B9F7-8D4EE2C792E1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E4D582F7A3254EBC13D919F507CC72B9BEEC7284" : "ilslib",
+    "8883F86CDA37C86D31E7AE9F6BC17C8AEB07A66D" : "LAS-Demo-Geolocations-iOS",
+    "066F4D81919596A1D0CEAB960979104E35418410" : "zcloud-sdk-ios"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Geolocations",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Geolocations.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "gitlab.ilegendsoft.com:zcloudsdk\/zcloud-sdk-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "066F4D81919596A1D0CEAB960979104E35418410"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:LeapAppServices\/LAS-Demo-Geolocations-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8883F86CDA37C86D31E7AE9F6BC17C8AEB07A66D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "gitlab.ilegendsoft.com:iosdev\/ilslib.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4D582F7A3254EBC13D919F507CC72B9BEEC7284"
+    }
+  ]
+}

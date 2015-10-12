@@ -20,7 +20,7 @@
     
     if (self.detailItem) {
         // obtain the geopoint
-        LASGeoPoint *geoPoint = self.detailItem[@"location"];
+        MLGeoPoint *geoPoint = self.detailItem[@"location"];
         
         // center our map view around this geopoint
         self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude), MKCoordinateSpanMake(0.01f, 0.01f));

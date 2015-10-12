@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		9D0C49AD197E182800BDAE3F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C494801F15ED5D6E00507216 /* libsqlite3.dylib */; };
 		9D0C49AE197E186600BDAE3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C451215015C885E3005E733A /* UIKit.framework */; };
-		9D608DA91B4228AF00888180 /* LAS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D608DA81B4228AF00888180 /* LAS.framework */; };
 		9D8C6D5A1B427CCC00036055 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C6D591B427CCC00036055 /* libz.dylib */; };
+		9DA8DA071BCB667000644D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DA8DA061BCB667000644D48 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		9DA8DA091BCB668300644D48 /* MaxLeap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA8DA081BCB668300644D48 /* MaxLeap.framework */; };
 		9DE0FD561A1F1C2B0030AE25 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */; };
 		9DF7E2091999C250005A32D0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E2081999C250005A32D0 /* SystemConfiguration.framework */; };
 		9DF7E20A1999C26D005A32D0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E0EF1999B2F2005A32D0 /* CoreTelephony.framework */; };
@@ -31,9 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D608DA81B4228AF00888180 /* LAS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LAS.framework; path = Frameworks/LAS.framework; sourceTree = "<group>"; };
 		9D8C6D591B427CCC00036055 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		9D8C6D5B1B427CE800036055 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9DA8DA061BCB667000644D48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GeoLocations/Images.xcassets; sourceTree = "<group>"; };
+		9DA8DA081BCB668300644D48 /* MaxLeap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxLeap.framework; path = Frameworks/MaxLeap.framework; sourceTree = "<group>"; };
 		9DE0FD531A1F1C1B0030AE25 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9DF7E0EF1999B2F2005A32D0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -73,11 +75,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DA8DA091BCB668300644D48 /* MaxLeap.framework in Frameworks */,
 				9D8C6D5A1B427CCC00036055 /* libz.dylib in Frameworks */,
 				9DE0FD561A1F1C2B0030AE25 /* MobileCoreServices.framework in Frameworks */,
 				9DF7E2091999C250005A32D0 /* SystemConfiguration.framework in Frameworks */,
 				9D0C49AD197E182800BDAE3F /* libsqlite3.dylib in Frameworks */,
-				9D608DA91B4228AF00888180 /* LAS.framework in Frameworks */,
 				9DF7E20A1999C26D005A32D0 /* CoreTelephony.framework in Frameworks */,
 				9D0C49AE197E186600BDAE3F /* UIKit.framework in Frameworks */,
 				C451215315C885E3005E733A /* Foundation.framework in Frameworks */,
@@ -90,6 +92,7 @@
 		C451214115C885E3005E733A = {
 			isa = PBXGroup;
 			children = (
+				9DA8DA061BCB667000644D48 /* Images.xcassets */,
 				C451215615C885E3005E733A /* Geolocations */,
 				C451214F15C885E3005E733A /* Frameworks */,
 				C451214D15C885E3005E733A /* Products */,
@@ -107,9 +110,9 @@
 		C451214F15C885E3005E733A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DA8DA081BCB668300644D48 /* MaxLeap.framework */,
 				9D8C6D5B1B427CE800036055 /* CoreGraphics.framework */,
 				9D8C6D591B427CCC00036055 /* libz.dylib */,
-				9D608DA81B4228AF00888180 /* LAS.framework */,
 				9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */,
 				9DE0FD531A1F1C1B0030AE25 /* Security.framework */,
 				9DF7E2081999C250005A32D0 /* SystemConfiguration.framework */,
@@ -318,6 +321,7 @@
 				C451215B15C885E3005E733A /* InfoPlist.strings in Resources */,
 				C451216415C885E3005E733A /* MainStoryboard.storyboard in Resources */,
 				C4DDA8A416EE583000B5C174 /* Default-568h@2x.png in Resources */,
+				9DA8DA071BCB667000644D48 /* Images.xcassets in Resources */,
 				C4DDA8A516EE583000B5C174 /* Default.png in Resources */,
 				C4DDA8A616EE583000B5C174 /* Default@2x.png in Resources */,
 			);
@@ -436,8 +440,11 @@
 		C451216E15C885E3005E733A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -461,9 +468,12 @@
 		C451216F15C885E3005E733A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",

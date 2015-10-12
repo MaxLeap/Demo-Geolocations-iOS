@@ -60,7 +60,7 @@
     if ([segue.identifier isEqualToString:@"showDetail"]) {
         // Row selection
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        LASObject *object = [self.objects objectAtIndex:indexPath.row];
+        MLObject *object = [self.objects objectAtIndex:indexPath.row];
         [segue.destinationViewController setDetailItem:object];
     } else if ([segue.identifier isEqualToString:@"showSearch"]) {
         // Search button
@@ -94,10 +94,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocationCell" forIndexPath:indexPath];
     
     // Configure the cell
-    LASObject *object = self.objects[indexPath.row];
-    LASGeoPoint *gp = object[@"location"];
+    MLObject *object = self.objects[indexPath.row];
+    MLGeoPoint *gp = object[@"location"];
     
-    [LASGeoPoint geoPointForCurrentLocationInBackground:^(LASGeoPoint *geoPoint, NSError *error) {
+    [MLGeoPoint geoPointForCurrentLocationInBackground:^(MLGeoPoint *geoPoint, NSError *error) {
         if (geoPoint) {
             double dis = [geoPoint distanceInKilometersTo:gp];
             NSString *string = [NSString stringWithFormat:@"%@, %@ (%.3f)",
@@ -132,9 +132,9 @@
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
  if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the object from LAS and reload the table view
+ // Delete the object from MaxLeap and reload the table view
  } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, and save it to LAS
+ // Create a new instance of the appropriate class, and save it to MaxLeap
  }
  }
  */
@@ -203,11 +203,11 @@
 
 	// Configure the new event with information from the location.
 	CLLocationCoordinate2D coordinate = [location coordinate];
-    LASGeoPoint *geoPoint = [LASGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-    LASObject *object = [LASObject objectWithClassName:@"Location"];
+    MLGeoPoint *geoPoint = [MLGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    MLObject *object = [MLObject objectWithClassName:@"Location"];
     [object setObject:geoPoint forKey:@"location"];
     
-    [LASDataManager saveObjectInBackground:object block:^(BOOL succeeded, NSError *error) {
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [self loadObjects];
         }
@@ -223,13 +223,13 @@
     
     // Configure the new event with information from the location.
     CLLocationCoordinate2D coordinate = [location coordinate];
-    LASGeoPoint *geoPoint = [LASGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    MLGeoPoint *geoPoint = [MLGeoPoint geoPointWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     
-    LASQuery *query = [LASQuery queryWithClassName:@"Location"];
+    MLQuery *query = [MLQuery queryWithClassName:@"Location"];
     if (geoPoint) {
         [query whereKey:@"location" nearGeoPoint:geoPoint withinKilometers:1];
         
-        [LASQueryManager findObjectsInBackgroundWithQuery:query block:^(NSArray *objects, NSError *error) {
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (nil == error) {
                 self.objects = objects;
                 [self.tableView reloadData];
