@@ -31,7 +31,6 @@
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
     
     // Listen for annotation updates. Triggers a refresh whenever an annotation is dragged and dropped.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"geoPointAnnotiationUpdated" object:nil];
@@ -41,14 +40,25 @@
     [self loadObjects];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+}
+
 - (void)appDidBecomeActive:(NSNotification *)notification {
     // Start updating locations when the app returns to the foreground.
-    [self.locationManager startUpdatingLocation];
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)appWillResignActive:(NSNotification *)notification {
     // Stop updating locations while in the background.
-    [self.locationManager stopUpdatingLocation];
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -155,6 +165,12 @@
 
 
 #pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [self.locationManager startUpdatingLocation];
+    }
+}
 
 /**
  Conditionally enable the Search/Add buttons:
