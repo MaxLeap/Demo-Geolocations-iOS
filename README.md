@@ -17,8 +17,14 @@ The project teaches you how to save a geographic coordinate with MaxLeap and how
 ## How to Run
 
 - Clone the repository and then open the project.
-- Create an app in leap.as console and name it LAS App. You can skip this step if you've already created one.
-- Add your LAS application id and client key in `AppDelegate.` .
+- Create an app in MaxLeap console. You can skip this step if you've already created one.
+- Add class `Location` with columns:
+	
+	Column Name | Type
+	------------|-----
+	location	  | GeoPoint
+	
+- Add your MaxLeap application id and client key in `AppDelegate.` .
 - Press <kbd>Command</kbd> + <kbd>R</kbd> to run it.
 
 ## Learn More

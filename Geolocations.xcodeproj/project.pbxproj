@@ -10,7 +10,7 @@
 		9D0C49AD197E182800BDAE3F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C494801F15ED5D6E00507216 /* libsqlite3.dylib */; };
 		9D0C49AE197E186600BDAE3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C451215015C885E3005E733A /* UIKit.framework */; };
 		9D8C6D5A1B427CCC00036055 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C6D591B427CCC00036055 /* libz.dylib */; };
-		9DA8DA071BCB667000644D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DA8DA061BCB667000644D48 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		9DA8DA071BCB667000644D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DA8DA061BCB667000644D48 /* Images.xcassets */; };
 		9DA8DA091BCB668300644D48 /* MaxLeap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA8DA081BCB668300644D48 /* MaxLeap.framework */; };
 		9DE0FD561A1F1C2B0030AE25 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE0FD551A1F1C2B0030AE25 /* MobileCoreServices.framework */; };
 		9DF7E2091999C250005A32D0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7E2081999C250005A32D0 /* SystemConfiguration.framework */; };
