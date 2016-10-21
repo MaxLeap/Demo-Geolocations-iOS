@@ -2,9 +2,6 @@
 //  MLReceiptManager.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 15/3/10.
-//  Copyright (c) 2015年 ilegendsoft. All rights reserved.
-//
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLConstants.h>
@@ -40,6 +37,6 @@
  @param receiptData The receipt data contained in a transaction.
  @param block the completion block will excute on main thread.
  */
-+ (void)verifyPaymentReceipt:(NSData *)receiptData completion:(MLBooleanResultBlock)block;
++ (void)verifyPaymentReceipt:(nullable NSData *)receiptData completion:(nullable MLBooleanResultBlock)block;
 
 @end

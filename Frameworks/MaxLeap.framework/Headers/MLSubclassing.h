@@ -2,13 +2,12 @@
 //  MLSubclassing.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 7/7/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
 @class MLQuery;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  If a subclass of MLObject conforms to MLSubclassing and calls registerSubclass, MaxLeap will be able to use that class as the native class for a MaxLeap object.<br>
@@ -18,7 +17,7 @@
 @protocol MLSubclassing <NSObject>
 
 /*!
- Constructs an object of the most specific class known to implement +leapClassName. This method takes care to help MLObject subclasses be subclassed themselves. For example, [MLUserobject] returns a MLUserby default but will return an object of a registered subclass instead if one is known. A default implementation is provided by MLObject which should always be sufficient.
+ Constructs an object of the most specific class known to implement +leapClassName. This method takes care to help MLObject subclasses be subclassed themselves. For example, [MLUser object] returns a MLUser by default but will return an object of a registered subclass instead if one is known. A default implementation is provided by MLObject which should always be sufficient.
  
  @return Returns the object that is instantiated.
  */
@@ -30,7 +29,7 @@
  @param objectId The object id for the referenced object.
  @return A MLObject without data.
  */
-+ (instancetype)objectWithoutDataWithObjectId:(NSString *)objectId;
++ (instancetype)objectWithoutDataWithObjectId:(nullable NSString *)objectId;
 
 /*! The name of the class as seen in the REST API. */
 + (NSString *)leapClassName;
@@ -43,8 +42,10 @@
 
 /*!
  Lets MaxLeap know this class should be used to instantiate all objects with class type leapClassName.<br>
- This method must be called before +[MaxLeap setApplicationId:clientKey:]
+ This method must be called before +[MaxLeap setApplicationId:clientKey:site:]
  */
 + (void)registerSubclass;
 
 @end
+
+NS_ASSUME_NONNULL_END

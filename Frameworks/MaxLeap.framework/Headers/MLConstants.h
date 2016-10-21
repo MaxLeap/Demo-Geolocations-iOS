@@ -3,20 +3,36 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@class MLObject, MLUser, MLPassport, MLFile, MLPrivateFile, MLConfig;
+@class MLObject, MLUser, MLFile, MLPrivateFile, MLConfig;
 
 ///--------------------------------------
 /// @name Version
 ///--------------------------------------
 
 // MaxLeap SDK Version
-#define MaxLeap_VERSION @"2.0.0"
+#define MaxLeap_VERSION @"2.1.3"
+
+///--------------------------------------
+/// @name MaxLeap Sites
+///--------------------------------------
+
+/**
+ * This enum represents MaxLeap server location.
+ */
+typedef NS_ENUM(int, MLSite) {
+    
+    /** Use servers in US. */
+    MLSiteUS = 0,
+    
+    /** Use servers in CN. */
+    MLSiteCN = 1
+};
 
 ///--------------------------------------
 /// @name Errors
 ///--------------------------------------
 
-extern NSString *const MLErrorDomain;
+extern NSString * const __nonnull MLErrorDomain;
 
 /*!
  `MLErrorCode` enum contains all custom error codes that are used as `code` for `NSError` for callbacks on all classes.
@@ -94,9 +110,6 @@ typedef NS_ENUM(NSInteger, MLErrorCode) {
     /*! @abstract 122: Invalid file name. A file name contains only a-zA-Z0-9_. characters and is between 1 and 36 characters. */
     kMLErrorInvalidFileName = 122,
     
-    /*! @abstract 123: Invalid ACL. An ACL with an invalid format was saved. This should not happen if you use MLACL. */
-    kMLErrorInvalidACL = 123,
-    
     /*! @abstract 124: The request timed out on the server. Typically this indicates the request is too expensive. */
     kMLErrorTimeout = 124,
     
@@ -160,6 +173,9 @@ typedef NS_ENUM(NSInteger, MLErrorCode) {
     /** @abstract 211: User not found. */
     kMLErrorUserNotFound = 211,
     
+    /** @abstract 221: Invalid sms code. */
+    kMLErrorInvalidSmsCode = 221,
+    
     /*! @abstract 250: User cannot be linked to an account because that account’s ID is not found. */
     kMLErrorLinkedIdMissing = 250,
     
@@ -175,7 +191,7 @@ typedef NS_ENUM(NSInteger, MLErrorCode) {
     /** @abstract 301: CAPTCHA input is invalid. */
     kMLErrorInvalidCaptcha = 301,
     
-    /** @abstract 401: Unauthorized access, no App ID, or App ID and App key verification failed. */
+    /** @abstract 401: Unauthorized access, no App ID, or App ID and App key verification failed, or has no permission. */
     kMLErrorUnauthorized = 401,
     
     /** @abstract 503: Rate limit exceeded. */
@@ -190,30 +206,41 @@ typedef NS_ENUM(NSInteger, MLErrorCode) {
     /** @abstract 602: Unexpected error. No infomation available. */
     kMLErrorUnexpected = 602,
     
-    /** @abstract 90000: Unkown error */
-    kMLErrorUnkown = 90000
+    /** @abstract 90000: No Permission */
+    kMLErrorNoPermission = 90000,
+    
+    /** @abstract 90000: Session token invalid */
+    kMLErrorSessionTokenInvalid = 90100,
+    
+    /** @abstract 90000: Session token expired */
+    kMLErrorSessionTokenExpired = 90101,
+    
+    /** @abstract 90000: AppId and key does not match */
+    kMLErrorAppIdAndKeyNotMatch = 90102,
+    
+    /** @abstract 90000: AppId and session token does not match */
+    kMLErrorAppIdAndSessionTokenNotMatch = 90103
 };
 
 ///--------------------------------------
 /// @name Blocks
 ///--------------------------------------
 
-typedef void (^MLBooleanResultBlock)(BOOL succeeded, NSError *error);
-typedef void (^MLIntegerResultBlock)(int number, NSError *error);
-typedef void (^MLArrayResultBlock)(NSArray *objects, NSError *error);
-typedef void (^MLDictionaryResultBlock)(NSDictionary *result, NSError *error);
-typedef void (^MLObjectResultBlock)(MLObject *object, NSError *error);
-typedef void (^MLUserResultBlock)(MLUser *user, NSError *error);
-typedef void (^MLPassportResultBlock)(MLPassport *passport, NSError *error);
-typedef void (^MLDataResultBlock)(NSData *data, NSError *error);
-typedef void (^MLDataStreamResultBlock)(NSInputStream *stream, NSError *error);
-typedef void (^MLStringResultBlock)(NSString *string, NSError *error);
-typedef void (^MLIdResultBlock)(id object, NSError *error);
+typedef void (^MLBooleanResultBlock)(BOOL succeeded, NSError *__nullable error);
+typedef void (^MLIntegerResultBlock)(int number, NSError *__nullable error);
+typedef void (^MLArrayResultBlock)(NSArray *__nullable objects, NSError *__nullable error);
+typedef void (^MLDictionaryResultBlock)(NSDictionary *__nullable result, NSError *__nullable error);
+typedef void (^MLObjectResultBlock)(MLObject *__nullable object, NSError *__nullable error);
+typedef void (^MLUserResultBlock)(MLUser *__nullable user, NSError *__nullable error);
+typedef void (^MLDataResultBlock)(NSData *__nullable data, NSError *__nullable error);
+typedef void (^MLDataStreamResultBlock)(NSInputStream *__nullable stream, NSError *__nullable error);
+typedef void (^MLStringResultBlock)(NSString *__nullable string, NSError *__nullable error);
+typedef void (^MLIdResultBlock)(id __nullable object, NSError *__nullable error);
 typedef void (^MLProgressBlock)(int percentDone);
-typedef void (^MLFileResultBlock)(MLFile *file, NSError *error);
-typedef void (^MLPrivateFileResultBlock)(MLPrivateFile *file, NSError *error);
-typedef void (^MLConfigResultBlock)(MLConfig *config, NSError *error);
-typedef void (^MLUsageResultBlock)(NSInteger fileCount, long usedCapacity, NSError *error);
+typedef void (^MLFileResultBlock)(MLFile *__nullable file, NSError *__nullable error);
+typedef void (^MLPrivateFileResultBlock)(MLPrivateFile *__nullable file, NSError *__nullable error);
+typedef void (^MLConfigResultBlock)(MLConfig *__nullable config, NSError *__nullable error);
+typedef void (^MLUsageResultBlock)(NSInteger fileCount, long usedCapacity, NSError *__nullable error);
 
 #ifndef ML_DEPRECATED
 #  ifdef __deprecated_msg
@@ -233,4 +260,14 @@ typedef void (^MLUsageResultBlock)(NSInteger fileCount, long usedCapacity, NSErr
 #  else
 #    define ML_EXTENSION_UNAVAILABLE(_msg)
 #  endif
+#endif
+
+///--------------------------------------
+/// @name Obj-C Generics Macros
+///--------------------------------------
+
+#if __has_feature(objc_generics) || __has_extension(objc_generics)
+#  define ML_GENERIC(...) <__VA_ARGS__>
+#else
+#  define ML_GENERIC(...)
 #endif

@@ -2,9 +2,7 @@
 //  MLObject.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 6/23/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
+
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLConstants.h>
@@ -12,10 +10,12 @@
     #import <MaxLeap/MLConstants.h>
 #endif
 
-@class MLACL, MLRelation;
+@class MLRelation;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
- A MaxLeap Framework Object that is a local representation of data persisted to the MaxLeap. This is the main class that is used to interact with objects in your app.
+ The MLObject class represent the data persisted to the MaxLeap cloud. This is the main class to interact with to fetch data from and save data to the cloud.
  */
 @interface MLObject : NSObject
 
@@ -39,7 +39,7 @@
  @param objectId The object id for the referenced object.
  @return A MLObject without data.
  */
-+ (instancetype)objectWithoutDataWithClassName:(NSString *)className objectId:(NSString *)objectId;
++ (instancetype)objectWithoutDataWithClassName:(NSString *)className objectId:(nullable NSString *)objectId;
 
 /*!
  Creates a new MLObject with a class name, initialized with data constructed from the specified set of objects and keys.
@@ -48,7 +48,7 @@
  @param dictionary An NSDictionary of keys and objects to set on the new MLObject.
  @return A MLObject with the given class name and set with the given data.
  */
-+ (instancetype)objectWithClassName:(NSString *)className dictionary:(NSDictionary *)dictionary;
++ (instancetype)objectWithClassName:(NSString *)className dictionary:(nullable NSDictionary ML_GENERIC(NSString*, id) *)dictionary;
 
 /*!
  Initializes a new MLObject with a class name.
@@ -56,7 +56,7 @@
  @param newClassName A class name can be any alphanumeric string that begins with a letter. It represents an object in your app, like a User or a Document.
  @return Returns the object that is instantiated with the given class name.
  */
-- (id)initWithClassName:(NSString *)newClassName;
+- (instancetype)initWithClassName:(NSString *)newClassName;
 
 #pragma mark -
 #pragma mark Properties
@@ -71,27 +71,22 @@
 /*!
  The id of the object.
  */
-@property (nonatomic, strong, readonly) NSString *objectId;
+@property (nonatomic, strong, readonly, nullable) NSString *objectId;
 
 /*!
  When the object was last updated.
  */
-@property (nonatomic, strong, readonly) NSDate *updatedAt;
+@property (nonatomic, strong, readonly, nullable) NSDate *updatedAt;
 
 /*!
  When the object was created.
  */
-@property (nonatomic, strong, readonly) NSDate *createdAt;
-
-/*!
- The ACL for this object.
- */
-@property (nonatomic, strong, readonly) MLACL *ACL;
+@property (nonatomic, strong, readonly, nullable) NSDate *createdAt;
 
 /*!
  Returns an array of the keys contained in this object. This does not include createdAt, updatedAt, authData, or objectId. It does include things like username and ACL.
  */
-- (NSArray *)allKeys;
+- (NSArray ML_GENERIC(NSString*) *)allKeys;
 
 
 
@@ -104,15 +99,16 @@
  @param key The key that the object is associated with.
  @return The value associated with the given key, or nil if no value is associated with key.
  */
-- (id)objectForKey:(NSString *)key;
+- (nullable id)objectForKey:(NSString *)key;
 
 /*!
  Sets the object associated with a given key.
  
- Set nil to unset a key on the object.
+ @discussion Setting `nil` for `key` results in unsetting the key on the object. This is the same behavior as `-removeObjectForKey:`.
+ If you need to represent a `nil` value, use `NSNull`.
  
- @param object The object.
- @param key The key.
+ @param object The object for `key`. A strong reference to the object is maintained by `MLObject`.
+ @param key The key. Raises an `NSInvalidArgumentException` if `key` is `nil`.
  */
 - (void)setObject:(id)object forKey:(NSString *)key;
 
@@ -128,13 +124,16 @@
  
  @param key The key.
  */
-- (id)objectForKeyedSubscript:(NSString *)key;
+- (nullable id)objectForKeyedSubscript:(NSString *)key;
 
 /*!
  * In LLVM 4.0 (XCode 4.5) or higher allows myObject[key] = value
  
- @param object The object.
- @param key The key.
+ @discussion Setting `nil` for `key` results in unsetting the key on the object. This is the same behavior as `-removeObjectForKey:`.
+ If you need to represent a `nil` value, use `NSNull`.
+ 
+ @param object The object. A strong reference to the object is maintained by `MLObject`.
+ @param key The key. Raises an `NSInvalidArgumentException` if `key` is `nil`.
  */
 - (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
 
@@ -257,7 +256,7 @@
  
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-- (void)saveInBackgroundWithBlock:(MLBooleanResultBlock)block;
+- (void)saveInBackgroundWithBlock:(nullable MLBooleanResultBlock)block;
 
 /*! @name Saving Many Objects to MaxLeap */
 
@@ -267,7 +266,8 @@
  @param objects The array of objects to save.
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-+ (void)saveAllInBackground:(NSArray<MLObject *> *)objects block:(MLBooleanResultBlock)block;
++ (void)saveAllInBackground:(nullable NSArray ML_GENERIC(MLObject *) *)objects
+                      block:(nullable MLBooleanResultBlock)block;
 
 #pragma mark -
 #pragma mark Delete
@@ -279,7 +279,7 @@
  
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-- (void)deleteInBackgroundWithBlock:(MLBooleanResultBlock)block;
+- (void)deleteInBackgroundWithBlock:(nullable MLBooleanResultBlock)block;
 
 /*! @name Delete Many Objects from MaxLeap */
 
@@ -289,7 +289,8 @@
  @param objects The array of objects to delete.
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-+ (void)deleteAllInBackground:(NSArray<MLObject *> *)objects block:(MLBooleanResultBlock)block;
++ (void)deleteAllInBackground:(nullable NSArray ML_GENERIC(MLObject *) *)objects
+                        block:(nullable MLBooleanResultBlock)block;
 
 #pragma mark -
 #pragma mark Fetch
@@ -301,14 +302,14 @@
  *
  *  @param block  The block to execute. The block should have the following argument signature: (MLObject *object, NSError *error)
  */
-- (void)fetchInBackgroundWithBlock:(MLObjectResultBlock)block;
+- (void)fetchInBackgroundWithBlock:(nullable MLObjectResultBlock)block;
 
 /**
  *  Fetches the MLObject's data asynchronously if isDataAvailable is false, then calls the callback block.
  *
  *  @param block  block The block to execute.  The block should have the following argument signature: (MLObject *object, NSError *error)
  */
-- (void)fetchIfNeededInBackgroundWithBlock:(MLObjectResultBlock)block;
+- (void)fetchIfNeededInBackgroundWithBlock:(nullable MLObjectResultBlock)block;
 
 
 /*! @name Getting Many Objects from MaxLeap */
@@ -319,7 +320,8 @@
  *  @param objects An NSArray of MLObjects.
  *  @param block   The block to execute. The block should have the following argument signature: (NSArray *objects, NSError *error)
  */
-+ (void)fetchAllInBackground:(NSArray<MLObject *> *)objects block:(MLArrayResultBlock)block;
++ (void)fetchAllInBackground:(nullable NSArray ML_GENERIC(MLObject *) *)objects
+                       block:(nullable MLArrayResultBlock)block;
 
 /**
  *  Fetches all of the MLObjects with the current data from the server asynchronously and calls the given block.
@@ -327,7 +329,10 @@
  *  @param objects The list of objects to fetch.
  *  @param block   The block to execute. The block should have the following argument signature: (NSArray *objects, NSError *error)
  */
-+ (void)fetchAllIfNeededInBackground:(NSArray<MLObject *> *)objects block:(MLArrayResultBlock)block;
-
++ (void)fetchAllIfNeededInBackground:(nullable NSArray ML_GENERIC(MLObject *) *)objects
+                               block:(nullable MLArrayResultBlock)block;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

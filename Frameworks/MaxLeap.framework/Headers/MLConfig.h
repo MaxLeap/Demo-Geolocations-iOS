@@ -2,9 +2,6 @@
 //  MLConfig.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 15/2/9.
-//  Copyright (c) 2015年 ilegendsoft. All rights reserved.
-//
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLConstants.h>
@@ -14,6 +11,8 @@
 
 @class MLGeoPoint, MLFile;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  @abstract
  *  The type of blocks submitted to config manager to get config valued changed event, which take two arguments and not return value.
@@ -21,7 +20,7 @@
  *  @param newValue new value after config value change
  *  @param oldValue old value before config value change
  */
-typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
+typedef void (^MLConfigValueChangedBlock)(id __nullable newValue, id __nullable oldValue);
 
 /*!
  `MLConfig` is a representation of the remote configuration object.
@@ -40,7 +39,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `nil` if there is no such value.
  */
-- (id)objectForKey:(NSString *)key;
+- (nullable id)objectForKey:(NSString *)key;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -54,7 +53,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (id)objectForKeyedSubscript:(NSString *)keyedSubscript;
+- (nullable id)objectForKeyedSubscript:(NSString *)keyedSubscript;
 
 /*!
  @abstract Returns the object as string value associated with a given key.
@@ -64,7 +63,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (NSString *)stringForKey:(NSString *)key defaultValue:(NSString *)defaultValue;
+- (nullable NSString *)stringForKey:(NSString *)key defaultValue:(nullable NSString *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -74,7 +73,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (NSDate *)dateForKey:(NSString *)key defaultValue:(NSDate *)defaultValue;
+- (nullable NSDate *)dateForKey:(NSString *)key defaultValue:(nullable NSDate *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -84,7 +83,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (NSArray *)arrayForKey:(NSString *)key defaultValue:(NSArray *)defaultValue;
+- (nullable NSArray *)arrayForKey:(NSString *)key defaultValue:(nullable NSArray *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -94,7 +93,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (NSDictionary *)dictionaryForKey:(NSString *)key defaultValue:(NSDictionary *)defaultValue;
+- (nullable NSDictionary *)dictionaryForKey:(NSString *)key defaultValue:(nullable NSDictionary *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -104,7 +103,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (MLFile *)fileForKey:(NSString *)key defaultValue:(MLFile *)defaultValue;
+- (nullable MLFile *)fileForKey:(NSString *)key defaultValue:(nullable MLFile *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -114,7 +113,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (MLGeoPoint *)geoPointForKey:(NSString *)key defaultValue:(MLGeoPoint *)defaultValue;
+- (nullable MLGeoPoint *)geoPointForKey:(NSString *)key defaultValue:(nullable MLGeoPoint *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -134,7 +133,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns The value associated with `key`, or `defaultValue` if there is no such value.
  */
-- (NSNumber *)numberForKey:(NSString *)key defaultValue:(NSNumber *)defaultValue;
+- (nullable NSNumber *)numberForKey:(NSString *)key defaultValue:(nullable NSNumber *)defaultValue;
 
 /*!
  @abstract Returns the object associated with a given key.
@@ -177,7 +176,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @returns Current, last fetched instance of MLConfig.
  */
-+ (MLConfig *)currentConfig;
++ (nullable MLConfig *)currentConfig;
 
 ///--------------------------------------
 /// @name Retrieving Config
@@ -188,7 +187,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  
  @param block The block to execute. It should have the following argument signature: `^(MLConfig *config, NSError *error)`.
  */
-+ (void)getConfigInBackgroundWithBlock:(MLConfigResultBlock)block;
++ (void)getConfigInBackgroundWithBlock:(nullable MLConfigResultBlock)block;
 
 /**
  *  Gets the `MLConfig` *asynchronously* for the given keys from MaxLeap servers and executes the given callback block.
@@ -196,7 +195,7 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
  *  @param keys  The keys to get, pass `nil` to get all key-values.
  *  @param block The block to execute. It should have the following argument signature: `^(MLConfig *config, NSError *error)`.
  */
-+ (void)getValuesForKeys:(NSArray<NSString*> *)keys inBackgroundWithBlock:(MLConfigResultBlock)block;
++ (void)getValuesForKeys:(nullable NSArray ML_GENERIC(NSString*) *)keys inBackgroundWithBlock:(nullable MLConfigResultBlock)block;
 
 ///--------------------------------------
 /// @name Observe Config Changes
@@ -230,3 +229,24 @@ typedef void (^MLConfigValueChangedBlock)(id newValue, id oldValue);
 + (void)removeObserver:(NSObject *)observer;
 
 @end
+
+///--------------------------------------
+/// @name Config Change Notification
+///--------------------------------------
+
+/**
+ *  Post when some cloud config value changes.
+ *  All changes will be contained in `userInfo`. 
+ *  The structure of userInfo is `{ key : { new : newValue, old : oldValue } }`
+ */
+FOUNDATION_EXPORT NSString * const MLConfigValueDidChangeNotification;
+
+/** Keys for entries in changes dictionary. */
+/** The key for new value. */
+FOUNDATION_EXPORT NSString * const kMLConfigNewValueKey;
+
+/** The key for old value. */
+FOUNDATION_EXPORT NSString * const kMLConfigOldValueKey;
+
+
+NS_ASSUME_NONNULL_END

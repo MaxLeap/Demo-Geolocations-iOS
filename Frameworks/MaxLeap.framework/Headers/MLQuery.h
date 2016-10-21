@@ -2,9 +2,7 @@
 //  MLQuery.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 6/23/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
+
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLConstants.h>
@@ -13,6 +11,8 @@
 #endif
 
 @class MLGeoPoint;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  A class that defines a query that is used to query for MLObjects.
@@ -52,19 +52,19 @@
  * Predicates comparing one key to another.<br>
  * Complex predicates with many ORed clauses.<br>
  */
-+ (MLQuery *)queryWithClassName:(NSString *)className predicate:(NSPredicate *)predicate;
++ (MLQuery *)queryWithClassName:(NSString *)className predicate:(nullable NSPredicate *)predicate;
 
 /*!
  Initializes the query with a class name.
  
  @param newClassName The class name.
  */
-- (id)initWithClassName:(NSString *)newClassName;
+- (instancetype)initWithClassName:(NSString *)newClassName;
 
 /*!
  The class name to query for
  */
-@property (nonatomic, retain) NSString *leapClassName;
+@property (nonatomic, strong) NSString *leapClassName;
 
 /** @name Adding Basic Constraints */
 
@@ -80,7 +80,7 @@
  
  @param keys The keys to include in the result.
  */
-- (void)selectKeys:(NSArray *)keys;
+- (void)selectKeys:(NSArray ML_GENERIC(NSString*) *)keys;
 
 /*!
  Add a constraint that requires a particular key exists.
@@ -98,6 +98,8 @@
 
 /*!
  Add a constraint to the query that requires a particular key's object to be equal to the provided object.
+ 
+ Object cannot be nil. If you try to match objects that do not exist key %@, use `-whereKeyDoesNotExist:` instead.
  
  @param key The key to be constrained.
  @param object The object that must be equalled.
@@ -138,6 +140,8 @@
 
 /*!
  Add a constraint to the query that requires a particular key's object to be not equal to the provided object.
+ 
+ Object cannot be nil. If you try to match objects that do exist key %@, use `-whereKeyExists:` instead.
  
  @param key The key to be constrained.
  @param object The object that must not be equalled.
@@ -231,7 +235,7 @@
  @param regex The regular expression pattern to match.
  @param modifiers Any of the following supported PCRE modifiers:<br><code>i</code> - Case insensitive search<br><code>m</code> - Search across multiple lines of input
  */
-- (void)whereKey:(NSString *)key matchesRegex:(NSString *)regex modifiers:(NSString *)modifiers;
+- (void)whereKey:(NSString *)key matchesRegex:(NSString *)regex modifiers:(nullable NSString *)modifiers;
 
 /*!
  Add a constraint for finding string values that contain a provided substring. This will be slow for large datasets.
@@ -239,7 +243,7 @@
  
  @param substring The substring that the value must contain.
  */
-- (void)whereKey:(NSString *)key containsString:(NSString *)substring;
+- (void)whereKey:(NSString *)key containsString:(nullable NSString *)substring;
 
 /*!
  Add a constraint for finding string values that start with a provided prefix. This will use smart indexing, so it will be fast for large datasets.
@@ -247,7 +251,7 @@
  @param key The key that the string to match is stored in.
  @param prefix The substring that the value must start with.
  */
-- (void)whereKey:(NSString *)key hasPrefix:(NSString *)prefix;
+- (void)whereKey:(NSString *)key hasPrefix:(nullable NSString *)prefix;
 
 /*!
  Add a constraint for finding string values that end with a provided suffix. This will be slow for large datasets.
@@ -255,20 +259,30 @@
  @param key The key that the string to match is stored in.
  @param suffix The substring that the value must end with.
  */
-- (void)whereKey:(NSString *)key hasSuffix:(NSString *)suffix;
+- (void)whereKey:(NSString *)key hasSuffix:(nullable NSString *)suffix;
 
 /** @name Adding Subqueries */
 
 /*!
- Returns a MLQuery that is the or of the passed in MLQuerys.
+ Returns a MLQuery that is the `OR` of the passed in MLQuerys.
  
  @param queries The list of queries to or together.
- @return a MLQuery that is the or of the passed in MLQuerys.
+ @return a MLQuery that is the `OR` of the passed in MLQuerys.
  */
-+ (MLQuery *)orQueryWithSubqueries:(NSArray<MLQuery*> *)queries;
-+ (MLQuery *)andQueryWithSubqueries:(NSArray<MLQuery*> *)queries;
++ (nullable MLQuery *)orQueryWithSubqueries:(nullable NSArray ML_GENERIC(MLQuery*) *)queries;
+
+/*!
+ Returns a MLQuery that is the `AND` of the passed in MLQuerys.
+ 
+ @param queries The list of queries to or together.
+ @return a MLQuery that is the `AND` of the passed in MLQuerys.
+ */
++ (nullable MLQuery *)andQueryWithSubqueries:(nullable NSArray ML_GENERIC(MLQuery*) *)queries;
+
+/*!
+ Return a query with negated conditions of the receiver.
+ */
 - (MLQuery *)notQuery;
-- (MLQuery *)toAndQuery;
 
 /*!
  Adds a constraint that requires that a key's value matches a value in another key in objects returned by a sub query.
@@ -329,10 +343,11 @@
  @param key The key to order by.
  */
 - (void)orderByDescending:(NSString *)key;
+
 /*!
  Also sort in descending order by the given key.  The previous keys provided will precedence over this key.
  
- @param key The key to order bye
+ @param key The key to order by.
  */
 - (void)addDescendingOrder:(NSString *)key;
 
@@ -348,7 +363,7 @@
  
  @param sortDescriptors An NSArray of NSSortDescriptor instances to order by.
  */
-- (void)orderBySortDescriptors:(NSArray<NSSortDescriptor*> *)sortDescriptors;
+- (void)orderBySortDescriptors:(nullable NSArray ML_GENERIC(NSSortDescriptor*) *)sortDescriptors;
 
 #pragma mark -
 #pragma mark Pagination properties
@@ -357,7 +372,7 @@
 /*!
  A limit on the number of objects to return. The default limit is 100, with a maximum of 1000 results being returned at a time.
  
- Note: If you are calling findObject with limit=1, you may find it easier to use +[MLDataManager getFirstObjectInBackgroundWithQuery:block:] instead.
+ Note: If you are calling findObject with limit=1, you may find it easier to use `getFirstObjectInBackgroundWithBlock:` instead.
  */
 @property (nonatomic) NSInteger limit;
 
@@ -373,14 +388,14 @@
 /** @name Getting Objects by ID */
 
 /**
- *  Gets a <PFObject> asynchronously and calls the given block with the result.
+ *  Gets a <MLObject> asynchronously and calls the given block with the result.
  *
  *  @warning This method mutates the query.
  *
  *  @param objectId The id of the object that is being requested.
  *  @param block    The block to execute. The block should have the following argument signature: `^(NSArray *object, NSError *error)`
  */
-- (void)getObjectInBackgroundWithId:(NSString *)objectId block:(MLObjectResultBlock)block;
+- (void)getObjectInBackgroundWithId:(NSString *)objectId block:(nullable MLObjectResultBlock)block;
 
 #pragma mark Find methods
 
@@ -391,7 +406,7 @@
  *
  *  @param block The block to execute. The block should have the following argument signature:(NSArray *objects, NSError *error)
  */
-- (void)findObjectsInBackgroundWithBlock:(MLArrayResultBlock)block;
+- (void)findObjectsInBackgroundWithBlock:(nullable MLArrayResultBlock)block;
 
 /** @name Getting the First Match in a Query */
 
@@ -402,7 +417,7 @@
  *
  *  @param block The block to execute. The block should have the following argument signature:(MLObject *object, NSError *error) result will be nil if error is set OR no object was found matching the query. error will be nil if result is set OR if the query succeeded, but found no results.
  */
-- (void)getFirstObjectInBackgroundWithBlock:(MLObjectResultBlock)block;
+- (void)getFirstObjectInBackgroundWithBlock:(nullable MLObjectResultBlock)block;
 
 #pragma mark Count methods
 
@@ -415,7 +430,7 @@
  
  @param block The block to execute. The block should have the following argument signature: (int count, NSError *error)
  */
-- (void)countObjectsInBackgroundWithBlock:(MLIntegerResultBlock)block;
+- (void)countObjectsInBackgroundWithBlock:(nullable MLIntegerResultBlock)block;
 
 #pragma mark Cancel methods
 
@@ -427,4 +442,6 @@
 - (void)cancel;
 
 @end
+
+NS_ASSUME_NONNULL_END
 

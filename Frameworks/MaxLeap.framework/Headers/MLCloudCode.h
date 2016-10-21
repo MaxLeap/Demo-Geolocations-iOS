@@ -2,9 +2,6 @@
 //  MLCloudCode.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 10/13/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLConstants.h>
@@ -13,7 +10,7 @@
 #endif
 
 /*!
- The `MLCloudCode` class provides methods for interacting with MaxLeap Functions.
+ The `MLCloudCode` class provides methods for interacting with MaxLeap Cloud Functions.
  */
 @interface MLCloudCode : NSObject
 
@@ -23,6 +20,6 @@
  @param parameters The parameters to send to the function.
  @param block The block to execute. The block should have the following argument signature:(id object, NSError *error).
  */
-+ (void)callFunctionInBackground:(NSString *)function withParameters:(NSDictionary *)parameters block:(MLIdResultBlock)block;
++ (void)callFunctionInBackground:(nonnull NSString *)function withParameters:(nullable NSDictionary *)parameters block:(nullable MLIdResultBlock)block;
 
 @end

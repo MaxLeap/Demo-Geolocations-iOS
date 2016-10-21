@@ -2,9 +2,7 @@
 //  MLUser.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 6/23/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
+
 
 #ifdef EXTENSION_IOS
     #import <MaxLeapExt/MLObject.h>
@@ -18,8 +16,10 @@
 
 @class MLQuery;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
- A MaxLeap Framework User Object that is a local representation of a user persisted to the MaxLeap. This class is a subclass of a MLObject, and retains the same functionality of a MLObject. You can also user MLDataManager's api to update a user.<br>
+ A MLUser object represent a user persisted to the MaxLeap.<br>
  */
 @interface MLUser : MLObject <MLSubclassing>
 
@@ -28,26 +28,14 @@
  */
 + (NSString *)leapClassName;
 
-/// The session token for the MLUser. This is set by the server upon successful authentication.
-@property (nonatomic, strong) NSString *sessionToken;
-
-/// Whether the MLUserwas just created from a request. This is only set after a Facebook or Twitter login.
-@property (readonly, nonatomic) BOOL isNew;
-
 /** @name Accessing the Current User */
 
 /*!
  Gets the currently logged in user from disk and returns an instance of it.
  @return Returns a MLUserthat is the currently logged in user. If there is none, returns nil.
  */
-+ (instancetype)currentUser;
++ (nullable instancetype)currentUser;
 
-/*!
- Enables automatic creation of anonymous users.  After calling this method, [MLUser currentUser] will always have a value. The user will only be created on the server once the user has been saved, or once an object with a relation to that user or an ACL that refers to the user has been saved.<br>
- 
- Note: saveEventually will not work if an item being saved has a relation to an automatic user that has never been saved.
- */
-+ (void)enableAutomaticUser;
 
 /** @name Creating a New User */
 
@@ -57,53 +45,50 @@
  */
 + (instancetype)user;
 
+/** @name Properties */
+
+/// The username for the MLUser.
+@property (nonatomic, strong, nullable) NSString *username;
+
+/// The password for the MLUser. This will not be filled in from the server with the password. It is only meant to be set.
+@property (nonatomic, strong, nullable) NSString *password;
+
+/// The email for the MLUser.
+@property (nonatomic, strong, nullable) NSString *email;
+
+/// Whether the email is verified.
+@property (nonatomic, readonly) BOOL emailVerified;
+
+/// The mobile phone number for the MLUser.
+@property (nonatomic, strong, nullable) NSString *mobilePhone;
+
+/// Whether the mobile phone number is verified. If true, the user can login using mobile phone number and smscode.
+@property (nonatomic, readonly) BOOL mobilePhoneVerified;
+
+/// The session token for the MLUser. This is set by the server upon successful authentication.
+@property (nonatomic, strong, nullable) NSString *sessionToken;
+
+/// Whether the MLUserwas just created from a request. This is only set after a Facebook or Twitter login.
+@property (readonly, nonatomic) BOOL isNew;
+
+/// The OAuth data from 3rd party platforms.
+@property (readonly, nonatomic) NSDictionary *oauthData;
+
+/** @name Authenticated status */
 /*!
- Whether the user is an authenticated object for the device. An authenticated MLUseris one that is obtained via a signUp or logIn method. An authenticated object is required in order to save (with altered values) or delete it.
+ Whether the user is an authenticated object for the device. An authenticated MLUser is one that is obtained via a signUp or logIn method. An authenticated object is required in order to save (with altered values) or delete it.
  
  @return Returns whether the user is authenticated.
  */
 - (BOOL)isAuthenticated;
 
-/**
- *  The username for the MLUser.
- */
-@property (nonatomic, strong) NSString *username;
-
-/**
- The password for the MLUser. This will not be filled in from the server with the password. It is only meant to be set.
- */
-@property (nonatomic, strong) NSString *password;
-
-/**
- *  The email for the MLUser.
- */
-@property (nonatomic, strong) NSString *email;
-
-/**
- *  Whether the email is veriified.
- */
-@property (nonatomic, readonly) BOOL emailVerified;
-
-/**
- *  The linked passport's objectId
- */
-@property (nonatomic, strong, readonly) NSString *passportId;
-
-/** @name Querying for Users */
-
-/**
- *  Creates a query for MLUserobjects.
- *
- *  @return a query for MLUserobjects.
- */
-+ (MLQuery *)query;
-
+/** @name Signing up */
 /*!
  Signs up the user asynchronously. Make sure that password and username are set. This will also enforce that the username isn't already taken.
  
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-- (void)signUpInBackgroundWithBlock:(MLBooleanResultBlock)block;
+- (void)signUpInBackgroundWithBlock:(nullable MLBooleanResultBlock)block;
 
 /** @name Logging in */
 
@@ -116,7 +101,7 @@
  */
 + (void)logInWithUsernameInBackground:(NSString *)username
                              password:(NSString *)password
-                                block:(MLUserResultBlock)block;
+                                block:(nullable MLUserResultBlock)block;
 
 /** @name Becoming a user */
 /*!
@@ -125,7 +110,7 @@
  @param sessionToken The session token for the user.
  @param block The block to execute. The block should have the following argument signature: (MLUser *user, NSError *error)
  */
-+ (void)becomeInBackgroundWithSessionToken:(NSString *)sessionToken block:(MLUserResultBlock)block;
++ (void)becomeInBackgroundWithSessionToken:(NSString *)sessionToken block:(nullable MLUserResultBlock)block;
 
 /** @name Logging Out */
 
@@ -142,7 +127,7 @@
  @param email Email of the account to send a reset password request.
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-+ (void)requestPasswordResetForEmailInBackground:(NSString *)email block:(MLBooleanResultBlock)block;
++ (void)requestPasswordResetForEmailInBackground:(NSString *)email block:(nullable MLBooleanResultBlock)block;
 
 /** @name Requesting a Email Verify */
 
@@ -152,7 +137,7 @@
  @param email Email of the account to verify.
  @param block The block to execute. The block should have the following argument signature: (BOOL succeeded, NSError *error)
  */
-+ (void)requestEmailVerifyForEmailInBackground:(NSString *)email block:(MLBooleanResultBlock)block;
++ (void)requestEmailVerifyForEmailInBackground:(NSString *)email block:(nullable MLBooleanResultBlock)block;
 
 /**
  *  Check whether the password matches the user.
@@ -160,16 +145,8 @@
  *  @param password a password
  *  @param block    The block to execute. The block should have the following argument signature: (BOOL isMatch, NSError *error)
  */
-- (void)checkIsPasswordMatchInBackground:(NSString *)password block:(MLBooleanResultBlock)block;
+- (void)checkIsPasswordMatchInBackground:(NSString *)password block:(nullable MLBooleanResultBlock)block;
 
-/**
- *  Check whether the password machtes the MLUserwhich's username is "username".
- *
- *  @param password the password
- *  @param username the username
- *  @param block    The block to execute. The block should have the following argument signature: (BOOL isMatch, NSError *error)
- */
-+ (void)checkIsPassword:(NSString *)password matchUsernameInBackground:(NSString *)username block:(MLBooleanResultBlock)block;
 
 /**
  *  Check the username is exist or not.
@@ -179,6 +156,8 @@
  *  @param username The username to check
  *  @param block    The block to execute. The block should have the following argument signature: (BOOL isExist, NSError *error)
  */
-+ (void)checkUsernameExists:(NSString *)username block:(MLBooleanResultBlock)block;
++ (void)checkUsernameExists:(NSString *)username block:(nullable MLBooleanResultBlock)block;
 
 @end
+
+NS_ASSUME_NONNULL_END

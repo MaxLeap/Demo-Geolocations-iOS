@@ -2,12 +2,11 @@
 //  MLGeoPoint.h
 //  MaxLeap
 //
-//  Created by Sun Jin on 6/30/14.
-//  Copyright (c) 2014 iLegendsoft. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  Object which may be used to embed a latitude / longitude point as the value for a key in a MLObject. MLObjects with a MLGeoPoint field may be queried in a geospatial manner using MLQuery's whereKey:nearGeoPoint:.<br>
@@ -16,7 +15,7 @@
  
  Currently, object classes may only have one key associated with a GeoPoint type.
  */
-@interface MLGeoPoint : NSObject
+@interface MLGeoPoint : NSObject <NSCopying, NSCoding>
 
 /** @name Creating a MLGeoPoint */
 /*!
@@ -32,7 +31,7 @@
  @param location CLLocation object, with set latitude and longitude.
  @return Returns a new MLGeoPoint at specified location.
  */
-+ (MLGeoPoint *)geoPointWithLocation:(CLLocation *)location;
++ (MLGeoPoint *)geoPointWithLocation:(nullable CLLocation *)location;
 
 /*!
  Creates a new MLGeoPoint object with the specified latitude and longitude.
@@ -49,7 +48,7 @@
  
  @param geoPointHandler A block which takes the newly created MLGeoPoint as an argument.
  */
-+ (void)geoPointForCurrentLocationInBackground:(void(^)(MLGeoPoint *geoPoint, NSError *error))geoPointHandler;
++ (void)geoPointForCurrentLocationInBackground:(nullable void(^)(MLGeoPoint *__nullable geoPoint, NSError *__nullable error))geoPointHandler;
 
 /** @name Controlling Position */
 
@@ -66,7 +65,7 @@
  @param point MLGeoPoint location of other point.
  @return distance in radians
  */
-- (double)distanceInRadiansTo:(MLGeoPoint *)point;
+- (double)distanceInRadiansTo:(nullable MLGeoPoint *)point;
 
 /*!
  Get distance in miles from this point to specified point.
@@ -74,7 +73,7 @@
  @param point MLGeoPoint location of other point.
  @return distance in miles
  */
-- (double)distanceInMilesTo:(MLGeoPoint *)point;
+- (double)distanceInMilesTo:(nullable MLGeoPoint *)point;
 
 /*!
  Get distance in kilometers from this point to specified point.
@@ -82,6 +81,8 @@
  @param point MLGeoPoint location of other point.
  @return distance in kilometers
  */
-- (double)distanceInKilometersTo:(MLGeoPoint *)point;
+- (double)distanceInKilometersTo:(nullable MLGeoPoint *)point;
 
 @end
+
+NS_ASSUME_NONNULL_END
