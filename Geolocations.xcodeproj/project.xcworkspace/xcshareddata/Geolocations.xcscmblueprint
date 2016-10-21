@@ -10,7 +10,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F6340BC3-E753-4BA2-B9F7-8D4EE2C792E1",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "066F4D81919596A1D0CEAB960979104E35418410" : "zcloud-sdk-ios",
+    "066F4D81919596A1D0CEAB960979104E35418410" : "zcloud-sdk-ios\/",
     "8883F86CDA37C86D31E7AE9F6BC17C8AEB07A66D" : "Demo-Geolocations-iOS\/",
     "E4D582F7A3254EBC13D919F507CC72B9BEEC7284" : "ilslib"
   },

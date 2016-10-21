@@ -17,7 +17,7 @@
     // ****************************************************************************
     // Uncommit fill in with your MaxLeap credentials:
     // ****************************************************************************
-#warning Please fill in with your MaxLeap credentials
+#error Please fill in with your MaxLeap credentials
     // [MaxLeap setApplicationId:@"APPLICATION_ID_HERE" clientKey:@"CLIENT_KEY_HERE"];
     [MaxLeap setApplicationId:@"55b202f760b2173daeff03b1" clientKey:@"Yy1VSEJlUHNnQzFRcHBudTAzWGhSdw" site:MLSiteCN];
     

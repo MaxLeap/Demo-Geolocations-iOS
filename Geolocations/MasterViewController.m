@@ -226,6 +226,8 @@
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [self loadObjects];
+        } else {
+            NSLog(@"%s error: \n%@\n\n", __PRETTY_FUNCTION__, error);
         }
     }];
 }
@@ -249,6 +251,8 @@
             if (nil == error) {
                 self.objects = objects;
                 [self.tableView reloadData];
+            } else {
+                NSLog(@"%s error: \n%@\n\n", __PRETTY_FUNCTION__, error);
             }
         }];
     }

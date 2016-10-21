@@ -181,6 +181,8 @@ enum PinAnnotationTypeTag {
                                                           initWithObject:object];
                 [self.mapView addAnnotation:geoPointAnnotation];
             }
+        } else {
+            NSLog(@"%s error: \n%@\n\n", __PRETTY_FUNCTION__, error);
         }
     }];
 }

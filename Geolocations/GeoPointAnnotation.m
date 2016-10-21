@@ -39,6 +39,8 @@
         if (succeeded) {
             // Send a notification when this geopoint has been updated. MasterViewController will be listening for this notification, and will reload its data when this notification is received.
             [[NSNotificationCenter defaultCenter] postNotificationName:@"geoPointAnnotiationUpdated" object:self.object];
+        } else {
+            NSLog(@"%s error: \n%@\n\n", __PRETTY_FUNCTION__, error);
         }
     }];
 }
